@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+
 
 export const FormContainer = styled.div`
   height: 100vh;
@@ -40,14 +41,14 @@ export const Input = styled.input`
   font-size: 1rem;
 `
 
-export const SignInButton = styled(Link)`
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+`
+
+export const SignInButton = styled.button`
   display: block;
   width: 100%;
   padding: 1rem 2.5rem;
   font-size: 1rem;
-  background: #fff;
   text-decoration: none;
-  color: #000;
-  text-transform: uppercase;
-  letter-spacing: 1px;
 `
