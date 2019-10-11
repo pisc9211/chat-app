@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { BrowswerRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import io from 'socket.io-client'
 
 import SignIn from './components/SignIn/SignIn'
