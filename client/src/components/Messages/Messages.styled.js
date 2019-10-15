@@ -18,6 +18,7 @@ export const UserIcon = styled.div`
   margin-left: 1rem;
   margin-bottom: .5rem;
   max-width: 50%;
+  text-transform: uppercase;
 `
 
 export const MessageContainer = styled.div`
