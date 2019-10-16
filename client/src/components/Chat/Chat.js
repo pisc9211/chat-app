@@ -8,8 +8,8 @@ import { ChatContainer } from './Chat.styled'
 
 let socket
 
-const Chat = ({ location }) => {
-  const ENDPOINT = "localhost:5000";
+const Chat = ({ location, history }) => {
+  const ENDPOINT = "https://react-app-chats.herokuapp.com";
   const [ name, setName ] = useState('')
   const [ room, setRoom ] = useState('')
   const [ message, setMessage ] = useState('')
@@ -28,6 +28,7 @@ const Chat = ({ location }) => {
     socket.emit('join',{ name, room }, (error) => {
       if (error) {
         alert(error)
+        history.push('/')
       }
     })
   }, [ ENDPOINT, location.search ])
@@ -59,13 +60,6 @@ const Chat = ({ location }) => {
     <ChatContainer>
       <Sidebar name={name} room={room} users={users} />
       <Main name={name} messages={messages} sendMessage={sendMessage} setMessage={setMessage} message={message}/>
-    {/* {name} + {room}
-    <ul>
-      {messages.map(message => <li>{message.message} - {message.user}</li>)}
-    </ul>
-
-    <input value={message} onChange={(e) => {e.preventDefault(); setMessage(e.target.value)}}/>
-    <button type="submit" onClick={() => sendMessage(message)}>Send Message</button> */}
     </ChatContainer>
   )
 }

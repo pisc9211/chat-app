@@ -5,25 +5,29 @@ const cors = require('cors')
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users')
 
+const router = require("./router");
+
 const PORT = process.env.PORT || 5000
 
-app.use(cors)
 
-app.get('/', (req,res) => res.send('Server is up and running!!!'))
+app.use(cors())
+app.use(router)
 
 io.on('connection', (socket) => {
   socket.on('join', ({ name, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room})
 
-    if (error) callback(error)
-
-    socket.join(user.room)
-    socket.emit('message', { user: 'admin', message: 'WELCOME TO ROOM ' + user.room })
-    socket.broadcast.to(user.room).emit('message', {  message: `${user.name} has joined!` })
-
-    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) })
-
-    callback()
+    if (error) {
+      callback(error)
+    } else {
+      socket.join(user.room)
+      socket.emit('message', { user: 'admin', message: 'WELCOME TO ROOM ' + user.room })
+      socket.broadcast.to(user.room).emit('message', {  message: `${user.name} has joined!` })
+  
+      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) })
+  
+      callback()
+    }
   })
 
   socket.on('sendMessage', (message, callback) => {
